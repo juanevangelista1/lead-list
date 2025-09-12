@@ -1,0 +1,92 @@
+[
+    {
+        "id": "lead-1",
+        "name": "Maria Silva",
+        "company": "Tech Solutions",
+        "email": "maria.silva@tech.com",
+        "source": "Website",
+        "score": 95,
+        "status": "New"
+    },
+    {
+        "id": "lead-2",
+        "name": "João Santos",
+        "company": "Innovate Corp",
+        "email": "joao.santos@innovate.com",
+        "source": "Referral",
+        "score": 88,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-3",
+        "name": "Ana Souza",
+        "company": "Global Connect",
+        "email": "ana.souza@global.com",
+        "source": "Partnership",
+        "score": 75,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-4",
+        "name": "Pedro Lima",
+        "company": "Data Insights",
+        "email": "pedro.lima@data.com",
+        "source": "Website",
+        "score": 60,
+        "status": "New"
+    },
+    {
+        "id": "lead-5",
+        "name": "Carla Oliveira",
+        "company": "Future Systems",
+        "email": "carla.oliveira@future.com",
+        "source": "Website",
+        "score": 85,
+        "status": "New"
+    },
+    {
+        "id": "lead-6",
+        "name": "Lucas Pereira",
+        "company": "Digital Media",
+        "email": "lucas.pereira@digital.com",
+        "source": "Event",
+        "score": 92,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-7",
+        "name": "Fernanda Costa",
+        "company": "Cloud Solutions",
+        "email": "fernanda.costa@cloud.com",
+        "source": "Website",
+        "score": 70,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-8",
+        "name": "Rafael Almeida",
+        "company": "Marketing Pro",
+        "email": "rafael.almeida@marketing.com",
+        "source": "Referral",
+        "score": 98,
+        "status": "New"
+    },
+    {
+        "id": "lead-9",
+        "name": "Beatriz Mendes",
+        "company": "Innovate Corp",
+        "email": "beatriz.mendes@innovate.com",
+        "source": "Website",
+        "score": 80,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-10",
+        "name": "Gustavo Ferreira",
+        "company": "Tech Solutions",
+        "email": "gustavo.ferreira@tech.com",
+        "source": "Event",
+        "score": 65,
+        "status": "Qualified"
+    }
+]
