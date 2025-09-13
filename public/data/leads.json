@@ -88,5 +88,1355 @@
         "source": "Event",
         "score": 65,
         "status": "Qualified"
+    },
+    {
+        "id": "lead-11",
+        "name": "Carlos Rocha",
+        "company": "Web Services",
+        "email": "carlos.rocha@web.com",
+        "source": "Website",
+        "score": 82,
+        "status": "New"
+    },
+    {
+        "id": "lead-12",
+        "name": "Juliana Martins",
+        "company": "TechCorp",
+        "email": "juliana.martins@techcorp.com",
+        "source": "Referral",
+        "score": 91,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-13",
+        "name": "Bruno Barbosa",
+        "company": "Data Solutions",
+        "email": "bruno.barbosa@data.com",
+        "source": "Partnership",
+        "score": 78,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-14",
+        "name": "Mariana Gomes",
+        "company": "Cloud Inc",
+        "email": "mariana.gomes@cloud.com",
+        "source": "Event",
+        "score": 68,
+        "status": "New"
+    },
+    {
+        "id": "lead-15",
+        "name": "Felipe Ribeiro",
+        "company": "Digital World",
+        "email": "felipe.ribeiro@digital.com",
+        "source": "Website",
+        "score": 89,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-16",
+        "name": "Gabriela Alves",
+        "company": "Future Tech",
+        "email": "gabriela.alves@future.com",
+        "source": "Referral",
+        "score": 96,
+        "status": "New"
+    },
+    {
+        "id": "lead-17",
+        "name": "Ricardo Carvalho",
+        "company": "Global Systems",
+        "email": "ricardo.carvalho@global.com",
+        "source": "Partnership",
+        "score": 72,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-18",
+        "name": "Amanda Melo",
+        "company": "Innovate Corp",
+        "email": "amanda.melo@innovate.com",
+        "source": "Website",
+        "score": 81,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-19",
+        "name": "Vinicius Castro",
+        "company": "Tech Solutions",
+        "email": "vinicius.castro@tech.com",
+        "source": "Event",
+        "score": 63,
+        "status": "New"
+    },
+    {
+        "id": "lead-20",
+        "name": "Leticia Fernandes",
+        "company": "Data Insights",
+        "email": "leticia.fernandes@data.com",
+        "source": "Website",
+        "score": 93,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-21",
+        "name": "Diego Araujo",
+        "company": "Net Solutions",
+        "email": "diego.araujo@net.com",
+        "source": "Referral",
+        "score": 88,
+        "status": "New"
+    },
+    {
+        "id": "lead-22",
+        "name": "Camila Pinto",
+        "company": "Alpha Tech",
+        "email": "camila.pinto@alpha.com",
+        "source": "Event",
+        "score": 76,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-23",
+        "name": "Rodrigo Barros",
+        "company": "Omega Systems",
+        "email": "rodrigo.barros@omega.com",
+        "source": "Partnership",
+        "score": 95,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-24",
+        "name": "Patricia Moreira",
+        "company": "Future Systems",
+        "email": "patricia.moreira@future.com",
+        "source": "Website",
+        "score": 60,
+        "status": "New"
+    },
+    {
+        "id": "lead-25",
+        "name": "Eduardo Correia",
+        "company": "Digital Media",
+        "email": "eduardo.correia@digital.com",
+        "source": "Referral",
+        "score": 85,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-26",
+        "name": "Larissa Dias",
+        "company": "Cloud Solutions",
+        "email": "larissa.dias@cloud.com",
+        "source": "Website",
+        "score": 92,
+        "status": "New"
+    },
+    {
+        "id": "lead-27",
+        "name": "Marcelo Nunes",
+        "company": "Marketing Pro",
+        "email": "marcelo.nunes@marketing.com",
+        "source": "Event",
+        "score": 70,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-28",
+        "name": "Aline Azevedo",
+        "company": "Innovate Corp",
+        "email": "aline.azevedo@innovate.com",
+        "source": "Partnership",
+        "score": 98,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-29",
+        "name": "Thiago Monteiro",
+        "company": "Tech Solutions",
+        "email": "thiago.monteiro@tech.com",
+        "source": "Website",
+        "score": 80,
+        "status": "New"
+    },
+    {
+        "id": "lead-30",
+        "name": "Renata Teixeira",
+        "company": "Global Connect",
+        "email": "renata.teixeira@global.com",
+        "source": "Referral",
+        "score": 65,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-31",
+        "name": "Anderson Cunha",
+        "company": "Data Insights",
+        "email": "anderson.cunha@data.com",
+        "source": "Website",
+        "score": 77,
+        "status": "New"
+    },
+    {
+        "id": "lead-32",
+        "name": "Vanessa Lima",
+        "company": "Future Systems",
+        "email": "vanessa.lima@future.com",
+        "source": "Event",
+        "score": 84,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-33",
+        "name": "Leandro Sousa",
+        "company": "Digital Media",
+        "email": "leandro.sousa@digital.com",
+        "source": "Partnership",
+        "score": 90,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-34",
+        "name": "Priscila Ramos",
+        "company": "Cloud Solutions",
+        "email": "priscila.ramos@cloud.com",
+        "source": "Referral",
+        "score": 69,
+        "status": "New"
+    },
+    {
+        "id": "lead-35",
+        "name": "Daniel Cardoso",
+        "company": "Marketing Pro",
+        "email": "daniel.cardoso@marketing.com",
+        "source": "Website",
+        "score": 94,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-36",
+        "name": "Tatiane Pires",
+        "company": "Innovate Corp",
+        "email": "tatiane.pires@innovate.com",
+        "source": "Event",
+        "score": 73,
+        "status": "New"
+    },
+    {
+        "id": "lead-37",
+        "name": "Alexandre Jesus",
+        "company": "Tech Solutions",
+        "email": "alexandre.jesus@tech.com",
+        "source": "Website",
+        "score": 86,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-38",
+        "name": "Sandra Duarte",
+        "company": "Global Connect",
+        "email": "sandra.duarte@global.com",
+        "source": "Referral",
+        "score": 97,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-39",
+        "name": "Roberto Freitas",
+        "company": "Data Insights",
+        "email": "roberto.freitas@data.com",
+        "source": "Partnership",
+        "score": 62,
+        "status": "New"
+    },
+    {
+        "id": "lead-40",
+        "name": "Cristiane Lopes",
+        "company": "Future Systems",
+        "email": "cristiane.lopes@future.com",
+        "source": "Website",
+        "score": 88,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-41",
+        "name": "Marcos Fogaça",
+        "company": "Digital Media",
+        "email": "marcos.fogaca@digital.com",
+        "source": "Event",
+        "score": 79,
+        "status": "New"
+    },
+    {
+        "id": "lead-42",
+        "name": "Simone Morais",
+        "company": "Cloud Solutions",
+        "email": "simone.morais@cloud.com",
+        "source": "Referral",
+        "score": 91,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-43",
+        "name": "Jonas Cavalcanti",
+        "company": "Marketing Pro",
+        "email": "jonas.cavalcanti@marketing.com",
+        "source": "Website",
+        "score": 67,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-44",
+        "name": "Elaine Rezende",
+        "company": "Innovate Corp",
+        "email": "elaine.rezende@innovate.com",
+        "source": "Partnership",
+        "score": 83,
+        "status": "New"
+    },
+    {
+        "id": "lead-45",
+        "name": "Sérgio Sales",
+        "company": "Tech Solutions",
+        "email": "sergio.sales@tech.com",
+        "source": "Website",
+        "score": 95,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-46",
+        "name": "Débora Campos",
+        "company": "Global Connect",
+        "email": "debora.campos@global.com",
+        "source": "Event",
+        "score": 71,
+        "status": "New"
+    },
+    {
+        "id": "lead-47",
+        "name": "Francisco Neves",
+        "company": "Data Insights",
+        "email": "francisco.neves@data.com",
+        "source": "Referral",
+        "score": 89,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-48",
+        "name": "Raquel Viana",
+        "company": "Future Systems",
+        "email": "raquel.viana@future.com",
+        "source": "Website",
+        "score": 99,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-49",
+        "name": "Luciano Macedo",
+        "company": "Digital Media",
+        "email": "luciano.macedo@digital.com",
+        "source": "Partnership",
+        "score": 64,
+        "status": "New"
+    },
+    {
+        "id": "lead-50",
+        "name": "Mônica Brandão",
+        "company": "Cloud Solutions",
+        "email": "monica.brandao@cloud.com",
+        "source": "Website",
+        "score": 87,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-51",
+        "name": "Jorge Bezerra",
+        "company": "Marketing Pro",
+        "email": "jorge.bezerra@marketing.com",
+        "source": "Event",
+        "score": 75,
+        "status": "New"
+    },
+    {
+        "id": "lead-52",
+        "name": "Cintia Siqueira",
+        "company": "Innovate Corp",
+        "email": "cintia.siqueira@innovate.com",
+        "source": "Referral",
+        "score": 92,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-53",
+        "name": "Paulo Vieira",
+        "company": "Tech Solutions",
+        "email": "paulo.vieira@tech.com",
+        "source": "Website",
+        "score": 68,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-54",
+        "name": "Isabela Nogueira",
+        "company": "Global Connect",
+        "email": "isabela.nogueira@global.com",
+        "source": "Partnership",
+        "score": 81,
+        "status": "New"
+    },
+    {
+        "id": "lead-55",
+        "name": "Rogério Dantas",
+        "company": "Data Insights",
+        "email": "rogerio.dantas@data.com",
+        "source": "Website",
+        "score": 96,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-56",
+        "name": "Adriana Maciel",
+        "company": "Future Systems",
+        "email": "adriana.maciel@future.com",
+        "source": "Event",
+        "score": 72,
+        "status": "New"
+    },
+    {
+        "id": "lead-57",
+        "name": "Fábio Guerra",
+        "company": "Digital Media",
+        "email": "fabio.guerra@digital.com",
+        "source": "Referral",
+        "score": 85,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-58",
+        "name": "Cláudia Aguiar",
+        "company": "Cloud Solutions",
+        "email": "claudia.aguiar@cloud.com",
+        "source": "Website",
+        "score": 93,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-59",
+        "name": "Antônio Brito",
+        "company": "Marketing Pro",
+        "email": "antonio.brito@marketing.com",
+        "source": "Partnership",
+        "score": 66,
+        "status": "New"
+    },
+    {
+        "id": "lead-60",
+        "name": "Andreia Matos",
+        "company": "Innovate Corp",
+        "email": "andreia.matos@innovate.com",
+        "source": "Website",
+        "score": 80,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-61",
+        "name": "Luiz Nascimento",
+        "company": "Tech Solutions",
+        "email": "luiz.nascimento@tech.com",
+        "source": "Event",
+        "score": 78,
+        "status": "New"
+    },
+    {
+        "id": "lead-62",
+        "name": "Erika Xavier",
+        "company": "Global Connect",
+        "email": "erika.xavier@global.com",
+        "source": "Referral",
+        "score": 91,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-63",
+        "name": "José Cordeiro",
+        "company": "Data Insights",
+        "email": "jose.cordeiro@data.com",
+        "source": "Website",
+        "score": 69,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-64",
+        "name": "Márcia Leal",
+        "company": "Future Systems",
+        "email": "marcia.leal@future.com",
+        "source": "Partnership",
+        "score": 82,
+        "status": "New"
+    },
+    {
+        "id": "lead-65",
+        "name": "Valter Franco",
+        "company": "Digital Media",
+        "email": "valter.franco@digital.com",
+        "source": "Website",
+        "score": 97,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-66",
+        "name": "Regina Drummond",
+        "company": "Cloud Solutions",
+        "email": "regina.drummond@cloud.com",
+        "source": "Event",
+        "score": 74,
+        "status": "New"
+    },
+    {
+        "id": "lead-67",
+        "name": "Igor Pacheco",
+        "company": "Marketing Pro",
+        "email": "igor.pacheco@marketing.com",
+        "source": "Referral",
+        "score": 86,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-68",
+        "name": "Jaqueline Silveira",
+        "company": "Innovate Corp",
+        "email": "jaqueline.silveira@innovate.com",
+        "source": "Website",
+        "score": 94,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-69",
+        "name": "Nelson Barreto",
+        "company": "Tech Solutions",
+        "email": "nelson.barreto@tech.com",
+        "source": "Partnership",
+        "score": 63,
+        "status": "New"
+    },
+    {
+        "id": "lead-70",
+        "name": "Sonia Franco",
+        "company": "Global Connect",
+        "email": "sonia.franco@global.com",
+        "source": "Website",
+        "score": 88,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-71",
+        "name": "William Moraes",
+        "company": "Data Insights",
+        "email": "william.moraes@data.com",
+        "source": "Event",
+        "score": 76,
+        "status": "New"
+    },
+    {
+        "id": "lead-72",
+        "name": "Tainá Peixoto",
+        "company": "Future Systems",
+        "email": "taina.peixoto@future.com",
+        "source": "Referral",
+        "score": 90,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-73",
+        "name": "Otávio Bernardes",
+        "company": "Digital Media",
+        "email": "otavio.bernardes@digital.com",
+        "source": "Website",
+        "score": 67,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-74",
+        "name": "Bárbara Queiroz",
+        "company": "Cloud Solutions",
+        "email": "barbara.queiroz@cloud.com",
+        "source": "Partnership",
+        "score": 83,
+        "status": "New"
+    },
+    {
+        "id": "lead-75",
+        "name": "Elias Farias",
+        "company": "Marketing Pro",
+        "email": "elias.farias@marketing.com",
+        "source": "Website",
+        "score": 95,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-76",
+        "name": "Helena Camargo",
+        "company": "Innovate Corp",
+        "email": "helena.camargo@innovate.com",
+        "source": "Event",
+        "score": 71,
+        "status": "New"
+    },
+    {
+        "id": "lead-77",
+        "name": "Davi Caldeira",
+        "company": "Tech Solutions",
+        "email": "davi.caldeira@tech.com",
+        "source": "Referral",
+        "score": 89,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-78",
+        "name": "Esther Chaves",
+        "company": "Global Connect",
+        "email": "esther.chaves@global.com",
+        "source": "Website",
+        "score": 99,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-79",
+        "name": "Enzo Damasceno",
+        "company": "Data Insights",
+        "email": "enzo.damasceno@data.com",
+        "source": "Partnership",
+        "score": 64,
+        "status": "New"
+    },
+    {
+        "id": "lead-80",
+        "name": "Valentina Escobar",
+        "company": "Future Systems",
+        "email": "valentina.escobar@future.com",
+        "source": "Website",
+        "score": 87,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-81",
+        "name": "Benjamin Feliciano",
+        "company": "Digital Media",
+        "email": "benjamin.feliciano@digital.com",
+        "source": "Event",
+        "score": 75,
+        "status": "New"
+    },
+    {
+        "id": "lead-82",
+        "name": "Manuela Frota",
+        "company": "Cloud Solutions",
+        "email": "manuela.frota@cloud.com",
+        "source": "Referral",
+        "score": 92,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-83",
+        "name": "Nicolas Galvão",
+        "company": "Marketing Pro",
+        "email": "nicolas.galvao@marketing.com",
+        "source": "Website",
+        "score": 68,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-84",
+        "name": "Isis Guedes",
+        "company": "Innovate Corp",
+        "email": "isis.guedes@innovate.com",
+        "source": "Partnership",
+        "score": 81,
+        "status": "New"
+    },
+    {
+        "id": "lead-85",
+        "name": "Guilherme Henriques",
+        "company": "Tech Solutions",
+        "email": "guilherme.henriques@tech.com",
+        "source": "Website",
+        "score": 96,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-86",
+        "name": "Heloísa Ibanez",
+        "company": "Global Connect",
+        "email": "heloisa.ibanez@global.com",
+        "source": "Event",
+        "score": 72,
+        "status": "New"
+    },
+    {
+        "id": "lead-87",
+        "name": "Heitor Jasmim",
+        "company": "Data Insights",
+        "email": "heitor.jasmim@data.com",
+        "source": "Referral",
+        "score": 85,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-88",
+        "name": "Lívia Lacerda",
+        "company": "Future Systems",
+        "email": "livia.lacerda@future.com",
+        "source": "Website",
+        "score": 93,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-89",
+        "name": "Lorenzo Quintal",
+        "company": "Digital Media",
+        "email": "lorenzo.quintal@digital.com",
+        "source": "Partnership",
+        "score": 66,
+        "status": "New"
+    },
+    {
+        "id": "lead-90",
+        "name": "Maria Júlia Quintela",
+        "company": "Cloud Solutions",
+        "email": "mariajulia.quintela@cloud.com",
+        "source": "Website",
+        "score": 80,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-91",
+        "name": "Theo Ramires",
+        "company": "Marketing Pro",
+        "email": "theo.ramires@marketing.com",
+        "source": "Event",
+        "score": 78,
+        "status": "New"
+    },
+    {
+        "id": "lead-92",
+        "name": "Cecília Sampaio",
+        "company": "Innovate Corp",
+        "email": "cecilia.sampaio@innovate.com",
+        "source": "Referral",
+        "score": 91,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-93",
+        "name": "Isaac Trindade",
+        "company": "Tech Solutions",
+        "email": "isaac.trindade@tech.com",
+        "source": "Website",
+        "score": 69,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-94",
+        "name": "Eloá Uchoa",
+        "company": "Global Connect",
+        "email": "eloa.uchoa@global.com",
+        "source": "Partnership",
+        "score": 82,
+        "status": "New"
+    },
+    {
+        "id": "lead-95",
+        "name": "Bryan Valcácer",
+        "company": "Data Insights",
+        "email": "bryan.valcacer@data.com",
+        "source": "Website",
+        "score": 97,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-96",
+        "name": "Yasmin Valente",
+        "company": "Future Systems",
+        "email": "yasmin.valente@future.com",
+        "source": "Event",
+        "score": 74,
+        "status": "New"
+    },
+    {
+        "id": "lead-97",
+        "name": "Emanuel Xavier",
+        "company": "Digital Media",
+        "email": "emanuel.xavier@digital.com",
+        "source": "Referral",
+        "score": 86,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-98",
+        "name": "Isabel Zago",
+        "company": "Cloud Solutions",
+        "email": "isabel.zago@cloud.com",
+        "source": "Website",
+        "score": 94,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-99",
+        "name": "Henry Zanetti",
+        "company": "Marketing Pro",
+        "email": "henry.zanetti@marketing.com",
+        "source": "Partnership",
+        "score": 63,
+        "status": "New"
+    },
+    {
+        "id": "lead-100",
+        "name": "Melissa Abreu",
+        "company": "Innovate Corp",
+        "email": "melissa.abreu@innovate.com",
+        "source": "Website",
+        "score": 88,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-101",
+        "name": "Cauã Assunção",
+        "company": "Tech Solutions",
+        "email": "caua.assuncao@tech.com",
+        "source": "Event",
+        "score": 76,
+        "status": "New"
+    },
+    {
+        "id": "lead-102",
+        "name": "Rebeca Baptista",
+        "company": "Global Connect",
+        "email": "rebeca.baptista@global.com",
+        "source": "Referral",
+        "score": 90,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-103",
+        "name": "Ryan Benites",
+        "company": "Data Insights",
+        "email": "ryan.benites@data.com",
+        "source": "Website",
+        "score": 67,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-104",
+        "name": "Sarah Borba",
+        "company": "Future Systems",
+        "email": "sarah.borba@future.com",
+        "source": "Partnership",
+        "score": 83,
+        "status": "New"
+    },
+    {
+        "id": "lead-105",
+        "name": "Igor Castilho",
+        "company": "Digital Media",
+        "email": "igor.castilho@digital.com",
+        "source": "Website",
+        "score": 95,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-106",
+        "name": "Alana Colaço",
+        "company": "Cloud Solutions",
+        "email": "alana.colaco@cloud.com",
+        "source": "Event",
+        "score": 71,
+        "status": "New"
+    },
+    {
+        "id": "lead-107",
+        "name": "Yuri D'avila",
+        "company": "Marketing Pro",
+        "email": "yuri.davila@marketing.com",
+        "source": "Referral",
+        "score": 89,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-108",
+        "name": "Estela Dorneles",
+        "company": "Innovate Corp",
+        "email": "estela.dorneles@innovate.com",
+        "source": "Website",
+        "score": 99,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-109",
+        "name": "Erick Espinoza",
+        "company": "Tech Solutions",
+        "email": "erick.espinoza@tech.com",
+        "source": "Partnership",
+        "score": 64,
+        "status": "New"
+    },
+    {
+        "id": "lead-110",
+        "name": "Elisa Esteves",
+        "company": "Global Connect",
+        "email": "elisa.esteves@global.com",
+        "source": "Website",
+        "score": 87,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-111",
+        "name": "Fernando Fagundes",
+        "company": "Data Insights",
+        "email": "fernando.fagundes@data.com",
+        "source": "Event",
+        "score": 75,
+        "status": "New"
+    },
+    {
+        "id": "lead-112",
+        "name": "Lavínia Furtado",
+        "company": "Future Systems",
+        "email": "lavinia.furtado@future.com",
+        "source": "Referral",
+        "score": 92,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-113",
+        "name": "Noah Galindo",
+        "company": "Digital Media",
+        "email": "noah.galindo@digital.com",
+        "source": "Website",
+        "score": 68,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-114",
+        "name": "Liz Galvão",
+        "company": "Cloud Solutions",
+        "email": "liz.galvao@cloud.com",
+        "source": "Partnership",
+        "score": 81,
+        "status": "New"
+    },
+    {
+        "id": "lead-115",
+        "name": "Kaique Guedes",
+        "company": "Marketing Pro",
+        "email": "kaique.guedes@marketing.com",
+        "source": "Website",
+        "score": 96,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-116",
+        "name": "Ayla Gusmão",
+        "company": "Innovate Corp",
+        "email": "ayla.gusmao@innovate.com",
+        "source": "Event",
+        "score": 72,
+        "status": "New"
+    },
+    {
+        "id": "lead-117",
+        "name": "Otávio Isidoro",
+        "company": "Tech Solutions",
+        "email": "otavio.isidoro@tech.com",
+        "source": "Referral",
+        "score": 85,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-118",
+        "name": "Maya Jurema",
+        "company": "Global Connect",
+        "email": "maya.jurema@global.com",
+        "source": "Website",
+        "score": 93,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-119",
+        "name": "Levi Lins",
+        "company": "Data Insights",
+        "email": "levi.lins@data.com",
+        "source": "Partnership",
+        "score": 66,
+        "status": "New"
+    },
+    {
+        "id": "lead-120",
+        "name": "Maria Luiza Lourenço",
+        "company": "Future Systems",
+        "email": "marialuiza.lourenco@future.com",
+        "source": "Website",
+        "score": 80,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-121",
+        "name": "Benício Lustosa",
+        "company": "Digital Media",
+        "email": "benicio.lustosa@digital.com",
+        "source": "Event",
+        "score": 78,
+        "status": "New"
+    },
+    {
+        "id": "lead-122",
+        "name": "Catarina Maranhão",
+        "company": "Cloud Solutions",
+        "email": "catarina.maranhao@cloud.com",
+        "source": "Referral",
+        "score": 91,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-123",
+        "name": "Augusto Marinho",
+        "company": "Marketing Pro",
+        "email": "augusto.marinho@marketing.com",
+        "source": "Website",
+        "score": 69,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-124",
+        "name": "Luna Mascarenhas",
+        "company": "Innovate Corp",
+        "email": "luna.mascarenhas@innovate.com",
+        "source": "Partnership",
+        "score": 82,
+        "status": "New"
+    },
+    {
+        "id": "lead-125",
+        "name": "Enrico Matos",
+        "company": "Tech Solutions",
+        "email": "enrico.matos@tech.com",
+        "source": "Website",
+        "score": 97,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-126",
+        "name": "Ana Clara Meireles",
+        "company": "Global Connect",
+        "email": "anaclara.meireles@global.com",
+        "source": "Event",
+        "score": 74,
+        "status": "New"
+    },
+    {
+        "id": "lead-127",
+        "name": "Miguel Menezes",
+        "company": "Data Insights",
+        "email": "miguel.menezes@data.com",
+        "source": "Referral",
+        "score": 86,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-128",
+        "name": "Maria Cecília Mesquita",
+        "company": "Future Systems",
+        "email": "mariacecilia.mesquita@future.com",
+        "source": "Website",
+        "score": 94,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-129",
+        "name": "Théo Mourão",
+        "company": "Digital Media",
+        "email": "theo.mourao@digital.com",
+        "source": "Partnership",
+        "score": 63,
+        "status": "New"
+    },
+    {
+        "id": "lead-130",
+        "name": "Maria Alice Muniz",
+        "company": "Cloud Solutions",
+        "email": "mariaalice.muniz@cloud.com",
+        "source": "Website",
+        "score": 88,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-131",
+        "name": "Gael Negreiros",
+        "company": "Marketing Pro",
+        "email": "gael.negreiros@marketing.com",
+        "source": "Event",
+        "score": 76,
+        "status": "New"
+    },
+    {
+        "id": "lead-132",
+        "name": "Laura Negrão",
+        "company": "Innovate Corp",
+        "email": "laura.negrao@innovate.com",
+        "source": "Referral",
+        "score": 90,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-133",
+        "name": "Ravi Novais",
+        "company": "Tech Solutions",
+        "email": "ravi.novais@tech.com",
+        "source": "Website",
+        "score": 67,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-134",
+        "name": "Maria Helena Noronha",
+        "company": "Global Connect",
+        "email": "mariahelena.noronha@global.com",
+        "source": "Partnership",
+        "score": 83,
+        "status": "New"
+    },
+    {
+        "id": "lead-135",
+        "name": "Bernardo Pacheco",
+        "company": "Data Insights",
+        "email": "bernardo.pacheco@data.com",
+        "source": "Website",
+        "score": 95,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-136",
+        "name": "Alice Padilha",
+        "company": "Future Systems",
+        "email": "alice.padilha@future.com",
+        "source": "Event",
+        "score": 71,
+        "status": "New"
+    },
+    {
+        "id": "lead-137",
+        "name": "Arthur Paes",
+        "company": "Digital Media",
+        "email": "arthur.paes@digital.com",
+        "source": "Referral",
+        "score": 89,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-138",
+        "name": "Sophia Paiva",
+        "company": "Cloud Solutions",
+        "email": "sophia.paiva@cloud.com",
+        "source": "Website",
+        "score": 99,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-139",
+        "name": "Davi Lucas Pantoja",
+        "company": "Marketing Pro",
+        "email": "davilucas.pantoja@marketing.com",
+        "source": "Partnership",
+        "score": 64,
+        "status": "New"
+    },
+    {
+        "id": "lead-140",
+        "name": "Isabella Parentes",
+        "company": "Innovate Corp",
+        "email": "isabella.parentes@innovate.com",
+        "source": "Website",
+        "score": 87,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-141",
+        "name": "Pedro Henrique Passos",
+        "company": "Tech Solutions",
+        "email": "pedrohenrique.passos@tech.com",
+        "source": "Event",
+        "score": 75,
+        "status": "New"
+    },
+    {
+        "id": "lead-142",
+        "name": "Júlia Peçanha",
+        "company": "Global Connect",
+        "email": "julia.pecanha@global.com",
+        "source": "Referral",
+        "score": 92,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-143",
+        "name": "João Miguel Pedrosa",
+        "company": "Data Insights",
+        "email": "joaomiguel.pedrosa@data.com",
+        "source": "Website",
+        "score": 68,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-144",
+        "name": "Lara Pegado",
+        "company": "Future Systems",
+        "email": "lara.pegado@future.com",
+        "source": "Partnership",
+        "score": 81,
+        "status": "New"
+    },
+    {
+        "id": "lead-145",
+        "name": "João Pedro Penha",
+        "company": "Digital Media",
+        "email": "joaopedro.penha@digital.com",
+        "source": "Website",
+        "score": 96,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-146",
+        "name": "Lorena Penteado",
+        "company": "Cloud Solutions",
+        "email": "lorena.penteado@cloud.com",
+        "source": "Event",
+        "score": 72,
+        "status": "New"
+    },
+    {
+        "id": "lead-147",
+        "name": "João Guilherme Pestana",
+        "company": "Marketing Pro",
+        "email": "joaoguilherme.pestana@marketing.com",
+        "source": "Referral",
+        "score": 85,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-148",
+        "name": "Mariana Pimenta",
+        "company": "Innovate Corp",
+        "email": "mariana.pimenta@innovate.com",
+        "source": "Website",
+        "score": 93,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-149",
+        "name": "Anthony Pimentel",
+        "company": "Tech Solutions",
+        "email": "anthony.pimentel@tech.com",
+        "source": "Partnership",
+        "score": 66,
+        "status": "New"
+    },
+    {
+        "id": "lead-150",
+        "name": "Ana Júlia Pinheiro",
+        "company": "Global Connect",
+        "email": "anajulia.pinheiro@global.com",
+        "source": "Website",
+        "score": 80,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-151",
+        "name": "Lucas Gabriel Pires",
+        "company": "Data Insights",
+        "email": "lucasgabriel.pires@data.com",
+        "source": "Event",
+        "score": 78,
+        "status": "New"
+    },
+    {
+        "id": "lead-152",
+        "name": "Ana Liz Portela",
+        "company": "Future Systems",
+        "email": "analiz.portela@future.com",
+        "source": "Referral",
+        "score": 91,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-153",
+        "name": "João Lucas Porto",
+        "company": "Digital Media",
+        "email": "joaolucas.porto@digital.com",
+        "source": "Website",
+        "score": 69,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-154",
+        "name": "Maria Eduarda Portocarrero",
+        "company": "Cloud Solutions",
+        "email": "mariaeduarda.portocarrero@cloud.com",
+        "source": "Partnership",
+        "score": 82,
+        "status": "New"
+    },
+    {
+        "id": "lead-155",
+        "name": "Davi Luiz Prado",
+        "company": "Marketing Pro",
+        "email": "daviluiz.prado@marketing.com",
+        "source": "Website",
+        "score": 97,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-156",
+        "name": "Ana Laura Proença",
+        "company": "Innovate Corp",
+        "email": "analaura.proenca@innovate.com",
+        "source": "Event",
+        "score": 74,
+        "status": "New"
+    },
+    {
+        "id": "lead-157",
+        "name": "Samuel Quadros",
+        "company": "Tech Solutions",
+        "email": "samuel.quadros@tech.com",
+        "source": "Referral",
+        "score": 86,
+        "status": "Qualified"
+    },
+    {
+        "id": "lead-158",
+        "name": "Maria Clara Quental",
+        "company": "Global Connect",
+        "email": "mariaclara.quental@global.com",
+        "source": "Website",
+        "score": 94,
+        "status": "Contacted"
+    },
+    {
+        "id": "lead-159",
+        "name": "João Gabriel Queiroz",
+        "company": "Data Insights",
+        "email": "joaogabriel.queiroz@data.com",
+        "source": "Partnership",
+        "score": 63,
+        "status": "New"
+    },
+    {
+        "id": "lead-160",
+        "name": "Maria Vitória Rebelo",
+        "company": "Future Systems",
+        "email": "mariavitoria.rebelo@future.com",
+        "source": "Website",
+        "score": 88,
+        "status": "Qualified"
     }
 ]

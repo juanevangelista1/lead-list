@@ -1,3 +1,5 @@
+'use client';
+
 import { Lead, LeadStatus } from '@/lib/types';
 import leadsData from '../../../public/data/leads.json';
 
@@ -16,10 +18,10 @@ class LeadServiceAPI {
 		});
 	}
 
+	// Removida a ordenação para que a lista de leads chegue como está no JSON
 	async fetchLeads(): Promise<Lead[]> {
 		console.log('Fetching leads...');
-		const sortedLeads = [...this.leads].sort((a, b) => b.score - a.score);
-		return this.simulateApiCall(sortedLeads);
+		return this.simulateApiCall([...this.leads]);
 	}
 
 	async updateLeadStatus(id: string, newStatus: LeadStatus): Promise<Lead> {
