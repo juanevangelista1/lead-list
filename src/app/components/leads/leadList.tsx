@@ -2,38 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { Lead } from '@/lib/types';
+import { leadService } from '@/app/services/leadServiceAPI';
 import { LeadDetailPanel } from './leadDetailPanel';
-
-// Dados mockados para o desenvolvimento do componente de UI
-const MOCKED_LEADS: Lead[] = [
-	{
-		id: 'lead-1',
-		name: 'Maria Silva',
-		company: 'Tech Solutions',
-		email: 'maria.silva@tech.com',
-		source: 'Website',
-		score: 95,
-		status: 'New',
-	},
-	{
-		id: 'lead-2',
-		name: 'João Santos',
-		company: 'Innovate Corp',
-		email: 'joao.santos@innovate.com',
-		source: 'Referral',
-		score: 88,
-		status: 'Contacted',
-	},
-	{
-		id: 'lead-3',
-		name: 'Ana Souza',
-		company: 'Global Connect',
-		email: 'ana.souza@global.com',
-		source: 'Partnership',
-		score: 75,
-		status: 'Qualified',
-	},
-];
 
 export function LeadList() {
 	const [leads, setLeads] = useState<Lead[]>([]);
@@ -42,19 +12,22 @@ export function LeadList() {
 	const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
 
 	useEffect(() => {
-		setTimeout(() => {
+		async function fetchLeads() {
 			try {
-				setLeads(MOCKED_LEADS);
-				setLoading(false);
+				const fetchedLeads = await leadService.fetchLeads();
+				setLeads(fetchedLeads);
 			} catch (e: unknown) {
 				if (e instanceof Error) {
 					setError(e.message);
 				} else {
-					setError('Failed to load mocked leads.');
+					setError('Failed to fetch leads.');
 				}
+			} finally {
 				setLoading(false);
 			}
-		}, 500); // Simula uma latência de 500ms
+		}
+
+		fetchLeads();
 	}, []);
 
 	const handleRowClick = (lead: Lead) => {
@@ -84,7 +57,7 @@ export function LeadList() {
 	return (
 		<div>
 			{leads.length > 0 ? (
-				<table className='min-w-full min-h-[95vh]  table-fixed divide-y divide-gray-200 dark:divide-gray-700'>
+				<table className='min-w-full table-fixed divide-y divide-gray-200 dark:divide-gray-700'>
 					<thead className='bg-gray-50 dark:bg-gray-800'>
 						<tr>
 							<th className='w-1/4 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider'>
@@ -131,6 +104,16 @@ export function LeadList() {
 			<LeadDetailPanel
 				lead={selectedLead}
 				onClose={handleClosePanel}
+				onSave={(updatedLead) => {
+					// Handle save logic here
+					setLeads((prevLeads) =>
+						prevLeads.map((lead) => (lead.id === updatedLead.id ? updatedLead : lead))
+					);
+				}}
+				onConvert={(leadToConvert) => {
+					// Handle convert logic here
+					console.log('Converting lead:', leadToConvert);
+				}}
 			/>
 		</div>
 	);
