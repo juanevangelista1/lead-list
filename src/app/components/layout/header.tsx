@@ -27,7 +27,7 @@ export function Header({ activeTab, setActiveTab }: HeaderProps) {
 		<header
 			ref={menuRef}
 			className='sticky top-0 z-50 border-b border-gray-200 dark:border-gray-700 backdrop-blur-sm'>
-			<div className='container flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8'>
+			<div className='container flex mx-auto h-16 items-center justify-between px-4 sm:px-6 lg:px-8'>
 				<Link
 					href='/'
 					className='flex items-center space-x-2 font-bold text-lg'>
