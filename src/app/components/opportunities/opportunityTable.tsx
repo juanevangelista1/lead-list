@@ -1,29 +1,15 @@
 'use client';
 
-import { Lead } from '@/lib/types';
-import { LeadDetailPanel } from './leadDetailPanel';
-import { useState } from 'react';
+import { Opportunity } from '@/lib/types';
 
-export interface LeadsTableProps {
-	leads: Lead[];
-	onConvert: (updatedLead: Lead) => void;
-	onSave: (updatedLead: Lead) => void;
+interface OpportunityTableProps {
+	opportunities: Opportunity[];
 }
 
-export function LeadsTable({ leads }: LeadsTableProps) {
-	const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
-
-	const handleRowClick = (lead: Lead) => {
-		setSelectedLead(lead);
-	};
-
-	const handleClosePanel = () => {
-		setSelectedLead(null);
-	};
-
+export function OpportunityTable({ opportunities }: OpportunityTableProps) {
 	return (
-		<>
-			{leads.length > 0 ? (
+		<div className='bg-white dark:bg-gray-900 rounded-lg shadow-md'>
+			{opportunities.length > 0 ? (
 				<div className='overflow-x-auto shadow-md sm:rounded-lg'>
 					<table className='min-w-full table-fixed divide-y divide-gray-200 dark:divide-gray-700'>
 						<thead className='bg-gray-50 dark:bg-gray-800'>
@@ -32,33 +18,30 @@ export function LeadsTable({ leads }: LeadsTableProps) {
 									Name
 								</th>
 								<th className='w-1/4 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider'>
-									Company
+									Account Name
 								</th>
 								<th className='w-1/4 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider'>
-									Status
+									Stage
 								</th>
 								<th className='w-1/4 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider'>
-									Score
+									Amount
 								</th>
 							</tr>
 						</thead>
 						<tbody className='bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700'>
-							{leads.map((lead) => (
-								<tr
-									key={lead.id}
-									onClick={() => handleRowClick(lead)}
-									className='hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors duration-200'>
+							{opportunities.map((opp) => (
+								<tr key={opp.id}>
 									<td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white'>
-										{lead.name}
+										{opp.name}
 									</td>
 									<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400'>
-										{lead.company}
+										{opp.accountName}
 									</td>
 									<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400'>
-										{lead.status}
+										{opp.stage}
 									</td>
 									<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400'>
-										{lead.score}
+										{opp.amount ? `$${opp.amount.toLocaleString()}` : '-'}
 									</td>
 								</tr>
 							))}
@@ -67,21 +50,9 @@ export function LeadsTable({ leads }: LeadsTableProps) {
 				</div>
 			) : (
 				<div className='flex items-center justify-center h-48'>
-					<p>No leads found.</p>
+					<p className='text-gray-500 dark:text-gray-400'>No opportunities found.</p>
 				</div>
 			)}
-			<LeadDetailPanel
-				lead={selectedLead}
-				onClose={handleClosePanel}
-				onSave={(updatedLead) => {
-					// Lógica de salvamento será implementada
-					console.log('Lead saved:', updatedLead);
-				}}
-				onConvert={(leadToConvert) => {
-					// Lógica de conversão será implementada
-					console.log('Lead converted:', leadToConvert);
-				}}
-			/>
-		</>
+		</div>
 	);
 }

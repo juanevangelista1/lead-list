@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Lead, LeadStatus } from '@/lib/types';
 import { leadService } from '../../services/leadServiceAPI';
 import { validateEmail } from '@/lib/utils';
-import { Loader2 } from 'lucide-react';
+import { Loader2, X, Pencil, XCircle, SlidersHorizontal } from 'lucide-react';
 import { opportunityService } from '../../services/opportunityService';
 import { Label } from '@/app/components/ui/label';
 
@@ -21,8 +21,11 @@ export function LeadDetailPanel({ lead, onClose, onSave, onConvert }: LeadDetail
 	const [selectedStatus, setSelectedStatus] = useState<LeadStatus>(lead?.status || 'New');
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState('');
+	const [isStatusDropdownOpen, setIsStatusDropdownOpen] = useState(false);
 
+	const panelRef = useRef<HTMLDivElement>(null);
 	const emailInputRef = useRef<HTMLInputElement>(null);
+	const statusDropdownRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		if (lead) {
@@ -31,6 +34,31 @@ export function LeadDetailPanel({ lead, onClose, onSave, onConvert }: LeadDetail
 			setError('');
 		}
 	}, [lead]);
+
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (panelRef.current && !panelRef.current.contains(event.target as Node)) {
+				onClose();
+			}
+		};
+
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, [onClose]);
+
+	useEffect(() => {
+		const handleClickOutsideDropdown = (event: MouseEvent) => {
+			if (statusDropdownRef.current && !statusDropdownRef.current.contains(event.target as Node)) {
+				setIsStatusDropdownOpen(false);
+			}
+		};
+		document.addEventListener('mousedown', handleClickOutsideDropdown);
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutsideDropdown);
+		};
+	}, [statusDropdownRef]);
 
 	const handleSave = async () => {
 		if (!lead) return;
@@ -80,8 +108,14 @@ export function LeadDetailPanel({ lead, onClose, onSave, onConvert }: LeadDetail
 		}
 	};
 
+	const handleStatusChange = (status: LeadStatus) => {
+		setSelectedStatus(status);
+		setIsStatusDropdownOpen(false);
+	};
+
 	const isPanelOpen = !!lead;
 	const isChanged = editedEmail !== lead?.email || selectedStatus !== lead?.status;
+	const leadStatuses: LeadStatus[] = ['New', 'Contacted', 'Qualified', 'Archived'];
 
 	return (
 		<>
@@ -92,124 +126,140 @@ export function LeadDetailPanel({ lead, onClose, onSave, onConvert }: LeadDetail
 				}`}></div>
 
 			<div
-				className={`fixed top-0 right-0 h-full w-full max-w-sm bg-white dark:bg-gray-900 shadow-xl z-50 transform transition-transform duration-300 ease-in-out ${
+				ref={panelRef}
+				className={`fixed top-0 right-0 h-full w-full max-w-md bg-white dark:bg-gray-900 shadow-xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col ${
 					isPanelOpen ? 'translate-x-0' : 'translate-x-full'
 				}`}>
-				<div className='flex flex-col h-full'>
-					<div className='flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700'>
-						<h2 className='text-xl font-semibold text-gray-900 dark:text-white'>
+				{/* Header do Painel */}
+				<div className='flex items-start justify-between p-6 border-b border-gray-200 dark:border-gray-700'>
+					<div className='flex flex-col'>
+						<h2 className='text-2xl font-semibold text-gray-900 dark:text-white'>
 							{lead?.name || 'Lead Details'}
 						</h2>
-						<button
-							onClick={onClose}
-							className='text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'>
-							&times;
-						</button>
+						<p className='text-sm text-gray-500 dark:text-gray-400'>{lead?.company || ''}</p>
 					</div>
+					<button
+						onClick={onClose}
+						className='text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 p-2 rounded-md transition-colors duration-200'>
+						<X className='h-5 w-5' />
+					</button>
+				</div>
 
-					<div className='p-4 overflow-y-auto flex-1'>
-						<div className='space-y-4 py-4'>
-							<div>
-								<Label
-									htmlFor='company'
-									className='text-gray-500 dark:text-gray-400'>
-									Company
-								</Label>
-								<p className='text-base font-medium'>{lead?.company}</p>
+				{/* Conteúdo do Painel */}
+				<div className='p-6 overflow-y-auto flex-1 space-y-6'>
+					<div className='flex flex-col space-y-2'>
+						<Label
+							htmlFor='email'
+							className='text-gray-500 dark:text-gray-400'>
+							Email
+						</Label>
+						{isEditingEmail ? (
+							<div className='flex items-center space-x-2'>
+								<input
+									id='email'
+									type='email'
+									name='email'
+									value={editedEmail}
+									onChange={(e) => setEditedEmail(e.target.value)}
+									ref={emailInputRef}
+									disabled={isLoading}
+									className='flex-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white'
+								/>
+								<button
+									onClick={() => setIsEditingEmail(false)}
+									disabled={isLoading}
+									className='text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 flex items-center space-x-1'>
+									<XCircle className='h-4 w-4' />
+									<span>Cancel</span>
+								</button>
 							</div>
-
-							<div>
-								<Label
-									htmlFor='email'
-									className='text-gray-500 dark:text-gray-400'>
-									Email
-								</Label>
-								{isEditingEmail ? (
-									<div className='flex items-center space-x-2'>
-										<input
-											id='email'
-											type='email'
-											name='email'
-											value={editedEmail}
-											onChange={(e) => setEditedEmail(e.target.value)}
-											ref={emailInputRef}
-											disabled={isLoading}
-											className='flex-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white'
-										/>
-										<button
-											onClick={() => setIsEditingEmail(false)}
-											disabled={isLoading}
-											className='text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'>
-											Cancel
-										</button>
-									</div>
-								) : (
-									<div className='flex items-center justify-between'>
-										<p className='text-base font-medium'>{lead?.email}</p>
-										<button
-											onClick={() => setIsEditingEmail(true)}
-											disabled={isLoading}
-											className='text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'>
-											Edit
-										</button>
-									</div>
-								)}
+						) : (
+							<div className='flex items-center justify-between'>
+								<p className='text-base font-medium'>{lead?.email}</p>
+								<button
+									onClick={() => setIsEditingEmail(true)}
+									disabled={isLoading}
+									className='cursor-pointer text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 flex items-center space-x-1'>
+									<Pencil className='h-4 w-4' />
+									<span>Edit</span>
+								</button>
 							</div>
-
-							<div>
-								<Label
-									htmlFor='status'
-									className='text-gray-500 dark:text-gray-400'>
-									Status
-								</Label>
-								<select
-									id='status'
-									name='status'
-									value={selectedStatus}
-									onChange={(e) => setSelectedStatus(e.target.value as LeadStatus)}
-									className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white'
-									disabled={isLoading}>
-									{['New', 'Contacted', 'Qualified', 'Archived'].map((status) => (
-										<option
-											key={status}
-											value={status}>
-											{status}
-										</option>
-									))}
-								</select>
-							</div>
-
-							<div>
-								<Label className='text-gray-500 dark:text-gray-400'>Score</Label>
-								<p className='text-base font-medium'>{lead?.score}</p>
-							</div>
-						</div>
+						)}
 						{error && <p className='text-red-500 text-sm mt-2'>{error}</p>}
 					</div>
-					<div className='flex flex-col sm:flex-row-reverse sm:justify-start sm:space-x-2 mt-4 pt-4 border-t border-gray-200 dark:border-gray-800 p-4'>
-						<button
-							onClick={handleSave}
-							disabled={isLoading || !isChanged}
-							className={`inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none dark:focus-visible:ring-gray-300 h-10 px-4 py-2 ${
-								isChanged
-									? 'bg-gray-900 text-gray-50 hover:bg-gray-900/90 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90'
-									: 'bg-gray-200 text-gray-400 dark:bg-gray-700 dark:text-gray-500'
-							}`}>
-							{isLoading ? <Loader2 className='mr-2 h-4 w-4 animate-spin' /> : 'Save'}
-						</button>
-						<button
-							onClick={onClose}
-							disabled={isLoading}
-							className='mt-2 sm:mt-0 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none dark:focus-visible:ring-gray-300 h-10 px-4 py-2 bg-transparent text-gray-900 hover:bg-gray-100 dark:text-gray-50 dark:hover:bg-gray-800'>
-							Cancel
-						</button>
+
+					<div className='flex flex-col space-y-2'>
+						<Label
+							htmlFor='status'
+							className='text-gray-500 dark:text-gray-400'>
+							Status
+						</Label>
+						<div
+							className='relative w-full'
+							ref={statusDropdownRef}>
+							<button
+								onClick={() => setIsStatusDropdownOpen(!isStatusDropdownOpen)}
+								disabled={isLoading}
+								className='inline-flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white transition-colors duration-200 w-full justify-between'>
+								<span>{selectedStatus}</span>
+								<SlidersHorizontal className='h-4 w-4 text-gray-500' />
+							</button>
+							{isStatusDropdownOpen && (
+								<div className='absolute top-full right-0 mt-2 min-w-full rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 z-10'>
+									<div
+										className='py-1'
+										role='menu'
+										aria-orientation='vertical'>
+										{leadStatuses.map((status) => (
+											<button
+												key={status}
+												onClick={() => handleStatusChange(status)}
+												className='block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700'
+												role='menuitem'>
+												{status}
+											</button>
+										))}
+									</div>
+								</div>
+							)}
+						</div>
+					</div>
+
+					<div className='flex flex-col space-y-2'>
+						<Label className='text-gray-500 dark:text-gray-400'>Score</Label>
+						<p className='text-base font-medium'>{lead?.score}</p>
+					</div>
+
+					<div className='flex flex-col sm:flex-row justify-start space-y-2 sm:space-y-0 sm:space-x-2 mt-6'>
 						<button
 							onClick={handleConvert}
 							disabled={isLoading || lead?.status === 'Opportunity'}
-							className='mt-2 sm:mt-0 sm:ml-auto inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none dark:focus-visible:ring-gray-300 h-10 px-4 py-2 bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600'>
+							className='flex-1 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none dark:focus-visible:ring-gray-300 h-10 px-4 py-2 bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 cursor-pointer'>
 							{isLoading ? <Loader2 className='mr-2 h-4 w-4 animate-spin' /> : 'Convert to Opportunity'}
 						</button>
 					</div>
+					{error && lead?.status !== 'Opportunity' && (
+						<p className='text-red-500 text-sm mt-2'>{error}</p>
+					)}
+				</div>
+
+				<div className='flex flex-col-reverse sm:flex-row items-center justify-start sm:space-x-2 p-6 border-t border-gray-200 dark:border-gray-800'>
+					<button
+						onClick={handleSave}
+						disabled={isLoading || !isChanged}
+						className={`flex-1 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none dark:focus-visible:ring-gray-300 h-10 px-4 py-2 ${
+							isChanged
+								? 'bg-gray-900 text-gray-50 hover:bg-gray-900/90 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90'
+								: 'bg-gray-200 text-gray-400 dark:bg-gray-700 dark:text-gray-500 '
+						}`}>
+						{isLoading ? <Loader2 className='mr-2 h-4 w-4 animate-spin' /> : 'Save'}
+					</button>
+					<button
+						onClick={onClose}
+						disabled={isLoading}
+						className='cursor-pointer mt-2 sm:mt-0 flex-1 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none dark:focus-visible:ring-gray-300 h-10 px-4 py-2 bg-transparent text-gray-900 hover:bg-gray-100 dark:text-gray-50 dark:hover:bg-gray-800 border border-gray-300 dark:border-gray-700'>
+						Cancel
+					</button>
 				</div>
 			</div>
 		</>

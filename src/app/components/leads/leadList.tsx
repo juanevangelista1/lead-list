@@ -9,7 +9,11 @@ import { Label } from '@/app/components/ui/label';
 import { SlidersHorizontal } from 'lucide-react';
 import useDebounce from '@/app/hooks/useDebounce';
 
-export function LeadList() {
+interface LeadListProps {
+	onLeadUpdate: (updatedLead: Lead) => void;
+}
+
+export function LeadList({ onLeadUpdate }: LeadListProps) {
 	const [leads, setLeads] = useState<Lead[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
@@ -94,6 +98,16 @@ export function LeadList() {
 		setFilterStatus(status);
 		setIsFilterOpen(false);
 		setCurrentPage(1);
+	};
+
+	const handleSaveLead = (updatedLead: Lead) => {
+		setLeads((prevLeads) => prevLeads.map((l) => (l.id === updatedLead.id ? updatedLead : l)));
+		onLeadUpdate(updatedLead);
+	};
+
+	const handleConvertLead = (updatedLead: Lead) => {
+		setLeads((prevLeads) => prevLeads.filter((l) => l.id !== updatedLead.id));
+		onLeadUpdate(updatedLead);
 	};
 
 	if (loading) {
@@ -189,7 +203,11 @@ export function LeadList() {
 					</div>
 				</div>
 				{paginatedLeads.length > 0 ? (
-					<LeadsTable leads={paginatedLeads} />
+					<LeadsTable
+						leads={paginatedLeads}
+						onSave={handleSaveLead}
+						onConvert={handleConvertLead}
+					/>
 				) : (
 					<div className='flex items-center justify-center h-48'>
 						<p className='text-gray-500 dark:text-gray-400'>No leads found.</p>
