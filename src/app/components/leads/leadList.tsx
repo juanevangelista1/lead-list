@@ -1,14 +1,15 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { Lead, LeadStatus, Opportunity } from '@/lib/types';
 import { leadService } from '@/app/services/leadServiceAPI';
 import { LeadsTable } from './leadsTable';
 import { Pagination } from './pagination';
 import { Label } from '@/app/components/ui/label';
-import { SlidersHorizontal } from 'lucide-react';
+import { SlidersHorizontal, Search } from 'lucide-react';
 import useDebounce from '@/app/hooks/useDebounce';
-import { toast } from 'react-toastify';
+import { useClickOutside } from '@/app/hooks/useClickOutside';
+import { useLocalStorage } from '@/app/hooks/useLocalStorage';
 
 interface LeadListProps {
 	leads: Lead[];
@@ -17,115 +18,89 @@ interface LeadListProps {
 	setOpportunities: (updatedOpportunities: Opportunity[]) => void;
 }
 
+const ITEMS_PER_PAGE = 10;
+const LEAD_FILTER_STATUSES: (LeadStatus | 'All')[] = [
+	'All',
+	'New',
+	'Contacted',
+	'Qualified',
+	'Opportunity',
+	'Archived',
+];
+
 export function LeadList({ leads, setLeads, opportunities, setOpportunities }: LeadListProps) {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
-	const [searchTerm, setSearchTerm] = useState('');
-	const [filterStatus, setFilterStatus] = useState<LeadStatus | 'All'>('All');
+	const [searchTerm, setSearchTerm] = useLocalStorage('leadSearchTerm', '');
+	const [filterStatus, setFilterStatus] = useLocalStorage<LeadStatus | 'All'>(
+		'leadFilterStatus',
+		'All'
+	);
 	const [isFilterOpen, setIsFilterOpen] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
-	const itemsPerPage = 10;
-	const [sortOption, setSortOption] = useState<'name' | 'score' | 'status'>('name');
-	const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+	const [sortOption, setSortOption] = useLocalStorage<'name' | 'score' | 'status'>(
+		'leadSortOption',
+		'score'
+	);
+	const [sortDirection, setSortDirection] = useLocalStorage<'asc' | 'desc'>(
+		'leadSortDirection',
+		'desc'
+	);
 
 	const filterRef = useRef<HTMLDivElement>(null);
-	const debouncedSearchTerm = useDebounce(searchTerm, 500);
+	const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
-	useEffect(() => {
-		const savedSearchTerm = localStorage.getItem('leadSearchTerm');
-		const savedFilterStatus = localStorage.getItem('leadFilterStatus');
-		const savedSortOption = localStorage.getItem('leadSortOption');
-		const savedSortDirection = localStorage.getItem('leadSortDirection');
-
-		if (savedSearchTerm) {
-			setSearchTerm(savedSearchTerm);
-		}
-		if (savedFilterStatus) {
-			setFilterStatus(savedFilterStatus as LeadStatus | 'All');
-		}
-		if (savedSortOption) {
-			setSortOption(savedSortOption as 'name' | 'score' | 'status');
-		}
-		if (savedSortDirection) {
-			setSortDirection(savedSortDirection as 'asc' | 'desc');
-		}
-	}, []);
+	useClickOutside(filterRef, () => setIsFilterOpen(false));
 
 	useEffect(() => {
 		if (leads.length > 0) {
 			setLoading(false);
-		} else {
-			async function fetchLeads() {
-				try {
-					const fetchedLeads = await leadService.fetchLeads();
-					setLeads(fetchedLeads);
-				} catch (e: unknown) {
-					if (e instanceof Error) {
-						setError(e.message);
-					} else {
-						setError('Failed to fetch leads.');
-					}
-				} finally {
-					setLoading(false);
-				}
-			}
-			fetchLeads();
+			return;
 		}
+
+		async function fetchLeads() {
+			try {
+				const fetchedLeads = await leadService.fetchLeads();
+				setLeads(fetchedLeads);
+			} catch (e: unknown) {
+				const errorMessage = e instanceof Error ? e.message : 'Failed to fetch leads.';
+				setError(errorMessage);
+			} finally {
+				setLoading(false);
+			}
+		}
+		fetchLeads();
 	}, [leads, setLeads]);
 
-	useEffect(() => {
-		localStorage.setItem('leadSearchTerm', searchTerm);
-	}, [searchTerm]);
+	const filteredAndSortedLeads = useMemo(() => {
+		return [...leads]
+			.filter((lead) => {
+				const searchTermLower = debouncedSearchTerm.toLowerCase();
+				const matchesSearchTerm =
+					lead.name.toLowerCase().includes(searchTermLower) ||
+					lead.company.toLowerCase().includes(searchTermLower);
+				const matchesStatus = filterStatus === 'All' || lead.status === filterStatus;
+				return matchesSearchTerm && matchesStatus;
+			})
+			.sort((a, b) => {
+				const aValue = a[sortOption];
+				const bValue = b[sortOption];
+				const direction = sortDirection === 'asc' ? 1 : -1;
 
-	useEffect(() => {
-		localStorage.setItem('leadFilterStatus', filterStatus);
-	}, [filterStatus]);
+				if (typeof aValue === 'string' && typeof bValue === 'string') {
+					return aValue.localeCompare(bValue) * direction;
+				}
+				if (typeof aValue === 'number' && typeof bValue === 'number') {
+					return (aValue - bValue) * direction;
+				}
+				return 0;
+			});
+	}, [leads, debouncedSearchTerm, filterStatus, sortOption, sortDirection]);
 
-	useEffect(() => {
-		localStorage.setItem('leadSortOption', sortOption);
-		localStorage.setItem('leadSortDirection', sortDirection);
-	}, [sortOption, sortDirection]);
-
-	useEffect(() => {
-		const handleClickOutside = (event: MouseEvent) => {
-			if (filterRef.current && !filterRef.current.contains(event.target as Node)) {
-				setIsFilterOpen(false);
-			}
-		};
-
-		document.addEventListener('mousedown', handleClickOutside);
-		return () => {
-			document.removeEventListener('mousedown', handleClickOutside);
-		};
-	}, [filterRef]);
-
-	const filteredAndSortedLeads = [...leads]
-		.filter((lead) => {
-			const matchesSearchTerm =
-				lead.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
-				lead.company.toLowerCase().includes(debouncedSearchTerm.toLowerCase());
-			const matchesStatus = filterStatus === 'All' || lead.status === filterStatus;
-			return matchesSearchTerm && matchesStatus;
-		})
-		.sort((a, b) => {
-			const aValue = a[sortOption];
-			const bValue = b[sortOption];
-
-			if (typeof aValue === 'string' && typeof bValue === 'string') {
-				const comparison = aValue.localeCompare(bValue);
-				return sortDirection === 'asc' ? comparison : -comparison;
-			}
-			if (typeof aValue === 'number' && typeof bValue === 'number') {
-				const comparison = aValue - bValue;
-				return sortDirection === 'asc' ? comparison : -comparison;
-			}
-			return 0;
-		});
-
-	const totalPages = Math.ceil(filteredAndSortedLeads.length / itemsPerPage);
+	const totalPages = Math.ceil(filteredAndSortedLeads.length / ITEMS_PER_PAGE);
 	const paginatedLeads = filteredAndSortedLeads.slice(
-		(currentPage - 1) * itemsPerPage,
-		currentPage * itemsPerPage
+		(currentPage - 1) * ITEMS_PER_PAGE,
+		currentPage * ITEMS_PER_PAGE
 	);
 
 	const handlePageChange = (page: number) => {
@@ -157,21 +132,20 @@ export function LeadList({ leads, setLeads, opportunities, setOpportunities }: L
 	const handleSaveLead = (updatedLead: Lead) => {
 		const newLeads = leads.map((l) => (l.id === updatedLead.id ? updatedLead : l));
 		setLeads(newLeads);
-		toast.success('Lead updated successfully!');
 	};
 
-	const handleConvertLead = (updatedLead: Lead) => {
-		const newLeads = leads.filter((l) => l.id !== updatedLead.id);
+	const handleConvertLead = (convertedLead: Lead) => {
+		const newLeads = leads.map((l) => (l.id === convertedLead.id ? convertedLead : l));
 		setLeads(newLeads);
+
 		const newOpportunity: Opportunity = {
-			id: updatedLead.id,
-			name: `Opportunity for ${updatedLead.name}`,
+			id: `opp-${convertedLead.id}`,
+			name: `Opportunity for ${convertedLead.name}`,
 			stage: 'Discovery',
 			amount: null,
-			accountName: updatedLead.company,
+			accountName: convertedLead.company,
 		};
 		setOpportunities([...opportunities, newOpportunity]);
-		toast.success('Lead converted to Opportunity!');
 	};
 
 	if (loading) {
@@ -190,35 +164,13 @@ export function LeadList({ leads, setLeads, opportunities, setOpportunities }: L
 		);
 	}
 
-	const leadFilterStatus: (LeadStatus | 'All')[] = [
-		'All',
-		'New',
-		'Contacted',
-		'Qualified',
-		'Opportunity',
-		'Archived',
-	];
-
 	return (
 		<div className='flex flex-col space-y-6'>
 			<div className='py-6 lg:px-0 sm:px-2 md:px-6'>
 				<div className='flex lg:justify-between items-center flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0'>
 					<div className='relative w-full sm:max-w-xs'>
 						<div className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none'>
-							<svg
-								className='w-4 h-4 text-gray-500 dark:text-gray-400'
-								aria-hidden='true'
-								xmlns='http://www.w3.org/2000/svg'
-								fill='none'
-								viewBox='0 0 20 20'>
-								<path
-									stroke='currentColor'
-									strokeLinecap='round'
-									strokeLinejoin='round'
-									strokeWidth='2'
-									d='m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z'
-								/>
-							</svg>
+							<Search className='w-4 h-4 text-gray-500 dark:text-gray-400' />
 						</div>
 						<Label
 							htmlFor='search-bar'
@@ -236,12 +188,12 @@ export function LeadList({ leads, setLeads, opportunities, setOpportunities }: L
 						/>
 					</div>
 					<div
-						className='relative flex items-center'
+						className='relative flex justify-between items-center'
 						ref={filterRef}>
 						<button
 							onClick={() => setIsFilterOpen(!isFilterOpen)}
 							className='flex-1 inline-flex items-center space-x-2 px-9 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white transition-colors duration-200 min-w-[150px]'>
-							<SlidersHorizontal className='h-4 w-4' />
+							<SlidersHorizontal className='h-4 w-4 text-gray-500' />
 							<span>{filterStatus}</span>
 						</button>
 						{isFilterOpen && (
@@ -250,7 +202,7 @@ export function LeadList({ leads, setLeads, opportunities, setOpportunities }: L
 									className='py-1'
 									role='menu'
 									aria-orientation='vertical'>
-									{leadFilterStatus.map((status) => (
+									{LEAD_FILTER_STATUSES.map((status) => (
 										<button
 											key={status}
 											onClick={() => handleFilterChange(status)}
@@ -279,7 +231,7 @@ export function LeadList({ leads, setLeads, opportunities, setOpportunities }: L
 					<p className='text-gray-500 dark:text-gray-400'>No leads found.</p>
 				</div>
 			)}
-			{filteredAndSortedLeads.length > itemsPerPage && (
+			{filteredAndSortedLeads.length > ITEMS_PER_PAGE && (
 				<Pagination
 					currentPage={currentPage}
 					totalPages={totalPages}
