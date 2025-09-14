@@ -1,30 +1,49 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+	--background: #ffffff;
+	--foreground: #171717;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+	:root {
+		--background: #0a0a0a;
+		--foreground: #ededed;
+	}
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+	background: var(--background);
+	color: var(--foreground);
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 button {
-  cursor: pointer;
+	cursor: pointer;
+}
+
+@media (max-width: 768px) {
+	.responsive-table thead {
+		display: none;
+	}
+	.responsive-table tr {
+		display: block;
+		margin-bottom: 0.625rem;
+		border-bottom: 2px solid #ddd;
+	}
+	.responsive-table td {
+		display: block;
+		text-align: right;
+		font-size: 0.875rem;
+		border-bottom: 1px dotted #ccc;
+	}
+	.responsive-table td::before {
+		content: attr(data-label);
+		float: left;
+		font-weight: bold;
+		text-transform: uppercase;
+	}
+	.responsive-table td:last-child {
+		border-bottom: 0;
+	}
 }

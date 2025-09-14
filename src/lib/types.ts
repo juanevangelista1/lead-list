@@ -1,5 +1,3 @@
-// src/lib/types.ts
-
 export type LeadStatus = 'New' | 'Contacted' | 'Qualified' | 'Opportunity' | 'Archived';
 export type OpportunityStage =
 	| 'Discovery'

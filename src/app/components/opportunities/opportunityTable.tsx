@@ -8,9 +8,9 @@ interface OpportunityTableProps {
 
 export function OpportunityTable({ opportunities }: OpportunityTableProps) {
 	return (
-		<div className='bg-white dark:bg-gray-900 rounded-lg shadow-md'>
+		<div className='bg-white dark:bg-gray-900 '>
 			{opportunities.length > 0 ? (
-				<div className='overflow-x-auto'>
+				<div className='overflow-x-auto rounded-lg shadow-md'>
 					<table className='min-w-full table-fixed divide-y divide-gray-200 dark:divide-gray-700'>
 						<thead className='bg-gray-50 dark:bg-gray-800'>
 							<tr>

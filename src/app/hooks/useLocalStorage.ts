@@ -1,24 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 
-export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T) => void] {
-	const [storedValue, setStoredValue] = useState<T>(initialValue);
-
-	useEffect(() => {
+export function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<SetStateAction<T>>] {
+	const [storedValue, setStoredValue] = useState<T>(() => {
 		try {
 			const item = window.localStorage.getItem(key);
-			if (item) {
-				try {
-					setStoredValue(JSON.parse(item));
-				} catch (error) {
-					setStoredValue(item as unknown as T);
-				}
-			}
+			return item ? JSON.parse(item) : initialValue;
 		} catch (error) {
 			console.error(`Error reading localStorage key “${key}”:`, error);
+			return initialValue;
 		}
-	}, [key]);
+	});
 
-	const setValue = (value: T) => {
+	const setValue: Dispatch<SetStateAction<T>> = (value) => {
 		try {
 			const valueToStore = value instanceof Function ? value(storedValue) : value;
 			setStoredValue(valueToStore);
@@ -27,6 +20,18 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T)
 			console.error(`Error setting localStorage key “${key}”:`, error);
 		}
 	};
+
+	useEffect(() => {
+		const handleStorageChange = (e: StorageEvent) => {
+			if (e.key === key && e.newValue) {
+				setStoredValue(JSON.parse(e.newValue));
+			}
+		};
+		window.addEventListener('storage', handleStorageChange);
+		return () => {
+			window.removeEventListener('storage', handleStorageChange);
+		};
+	}, [key]);
 
 	return [storedValue, setValue];
 }

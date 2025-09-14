@@ -7,8 +7,9 @@ import { opportunityService } from '../../services/opportunityService';
 import { validateEmail } from '@/lib/utils';
 import { useClickOutside } from '@/app/hooks/useClickOutside';
 import { Label } from '@/app/components/ui/label';
-import { Loader2, X, Pencil, XCircle, SlidersHorizontal } from 'lucide-react';
+import { Loader2, X, SlidersHorizontal } from 'lucide-react';
 import { toast } from 'react-toastify';
+import { EditableField } from '../ui/editableField';
 
 interface LeadDetailPanelProps {
 	lead: Lead | null;
@@ -19,8 +20,21 @@ interface LeadDetailPanelProps {
 
 const LEAD_STATUSES: LeadStatus[] = ['New', 'Contacted', 'Qualified', 'Archived'];
 
+const PanelHeader = ({ lead, onClose }: { lead: Lead; onClose: () => void }) => (
+	<div className='flex items-start justify-between p-6 border-b border-gray-200 dark:border-gray-700'>
+		<div className='flex flex-col'>
+			<h2 className='text-2xl font-semibold text-gray-900 dark:text-white'>{lead.name}</h2>
+			<p className='text-sm text-gray-500 dark:text-gray-400'>{lead.company}</p>
+		</div>
+		<button
+			onClick={onClose}
+			className='text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 p-2 rounded-md transition-colors duration-200'>
+			<X className='h-5 w-5' />
+		</button>
+	</div>
+);
+
 export function LeadDetailPanel({ lead, onClose, onSave, onConvert }: LeadDetailPanelProps) {
-	const [isEditingEmail, setIsEditingEmail] = useState(false);
 	const [editedEmail, setEditedEmail] = useState('');
 	const [selectedStatus, setSelectedStatus] = useState<LeadStatus>('New');
 	const [isLoading, setIsLoading] = useState(false);
@@ -38,7 +52,6 @@ export function LeadDetailPanel({ lead, onClose, onSave, onConvert }: LeadDetail
 			setEditedEmail(lead.email);
 			setSelectedStatus(lead.status);
 			setError('');
-			setIsEditingEmail(false);
 		}
 	}, [lead]);
 
@@ -83,8 +96,9 @@ export function LeadDetailPanel({ lead, onClose, onSave, onConvert }: LeadDetail
 
 		try {
 			const newOpportunity = await opportunityService.createOpportunityFromLead(lead);
-			const updatedLead = await leadService.updateLeadStatus(lead.id, 'Opportunity');
-			onConvert(updatedLead, newOpportunity);
+			const updatedLeadData = { ...lead, status: 'Opportunity' as LeadStatus };
+			await leadService.updateLead(lead.id, { status: 'Opportunity' });
+			onConvert(updatedLeadData, newOpportunity);
 			toast.success('Lead converted to Opportunity!');
 			onClose();
 		} catch (e: unknown) {
@@ -104,6 +118,16 @@ export function LeadDetailPanel({ lead, onClose, onSave, onConvert }: LeadDetail
 	const isPanelOpen = !!lead;
 	const isChanged = lead ? editedEmail !== lead.email || selectedStatus !== lead.status : false;
 
+	const getButtonClasses = (isPrimary: boolean) => {
+		const baseClasses =
+			'flex-1 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed dark:focus-visible:ring-gray-300 h-10 px-4 py-2';
+
+		if (isPrimary) {
+			return `${baseClasses} bg-gray-900 text-gray-50 hover:bg-gray-900/90 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 disabled:bg-gray-200 disabled:text-gray-400 dark:disabled:bg-gray-700 dark:disabled:text-gray-500`;
+		}
+		return `${baseClasses} bg-transparent text-gray-900 hover:bg-gray-100 dark:text-gray-50 dark:hover:bg-gray-800 border border-gray-300 dark:border-gray-700`;
+	};
+
 	return (
 		<>
 			<div
@@ -119,17 +143,10 @@ export function LeadDetailPanel({ lead, onClose, onSave, onConvert }: LeadDetail
 				}`}>
 				{lead && (
 					<>
-						<div className='flex items-start justify-between p-6 border-b border-gray-200 dark:border-gray-700'>
-							<div className='flex flex-col'>
-								<h2 className='text-2xl font-semibold text-gray-900 dark:text-white'>{lead.name}</h2>
-								<p className='text-sm text-gray-500 dark:text-gray-400'>{lead.company}</p>
-							</div>
-							<button
-								onClick={onClose}
-								className='text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 p-2 rounded-md transition-colors duration-200'>
-								<X className='h-5 w-5' />
-							</button>
-						</div>
+						<PanelHeader
+							lead={lead}
+							onClose={onClose}
+						/>
 						<div className='p-6 overflow-y-auto flex-1 space-y-6'>
 							<div className='flex flex-col space-y-2'>
 								<Label
@@ -137,36 +154,13 @@ export function LeadDetailPanel({ lead, onClose, onSave, onConvert }: LeadDetail
 									className='text-gray-500 dark:text-gray-400'>
 									Email
 								</Label>
-								{isEditingEmail ? (
-									<div className='flex items-center space-x-2'>
-										<input
-											id='email'
-											type='email'
-											name='email'
-											value={editedEmail}
-											onChange={(e) => setEditedEmail(e.target.value)}
-											className='inline-flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white transition-colors duration-200 w-full justify-between'
-										/>
-										<button
-											onClick={() => setIsEditingEmail(false)}
-											disabled={isLoading}
-											className='text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 flex items-center space-x-1'>
-											<XCircle className='h-4 w-4' />
-											<span>Cancel</span>
-										</button>
-									</div>
-								) : (
-									<div className='flex items-center justify-between'>
-										<p className='text-base font-medium'>{lead.email}</p>
-										<button
-											onClick={() => setIsEditingEmail(true)}
-											disabled={isLoading}
-											className='cursor-pointer text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 flex items-center space-x-1'>
-											<Pencil className='h-4 w-4' />
-											<span>Edit</span>
-										</button>
-									</div>
-								)}
+								<EditableField
+									label='email'
+									initialValue={editedEmail}
+									onValueChange={setEditedEmail}
+									isLoading={isLoading}
+									inputType='email'
+								/>
 							</div>
 							<div className='flex flex-col space-y-2'>
 								<Label
@@ -212,7 +206,7 @@ export function LeadDetailPanel({ lead, onClose, onSave, onConvert }: LeadDetail
 								<button
 									onClick={handleConvert}
 									disabled={isLoading || lead.status === 'Opportunity'}
-									className='cursor-pointer flex-1 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none dark:focus-visible:ring-gray-300 h-10 px-4 py-2 bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600'>
+									className='flex-1 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed dark:focus-visible:ring-gray-300 h-10 px-4 py-2 bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600'>
 									{isLoading ? <Loader2 className='mr-2 h-4 w-4 animate-spin' /> : 'Convert Lead'}
 								</button>
 							</div>
@@ -220,20 +214,16 @@ export function LeadDetailPanel({ lead, onClose, onSave, onConvert }: LeadDetail
 						</div>
 						<div className='flex flex-col gap-2 items-stretch p-6 border-t border-gray-200 dark:border-gray-800 lg:flex-row lg:items-center lg:justify-between'>
 							<button
-								onClick={handleSave}
-								disabled={isLoading || !isChanged}
-								className={`flex-1 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none dark:focus-visible:ring-gray-300 h-10 px-4 py-2 ${
-									isChanged
-										? 'bg-gray-900 text-gray-50 hover:bg-gray-900/90 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90'
-										: 'bg-gray-200 text-gray-400 dark:bg-gray-700 dark:text-gray-500 '
-								}`}>
-								{isLoading ? <Loader2 className='mr-2 h-4 w-4 animate-spin' /> : 'Save Changes'}
-							</button>
-							<button
 								onClick={onClose}
 								disabled={isLoading}
-								className='mt-2 sm:mt-0 flex-1 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none dark:focus-visible:ring-gray-300 h-10 px-4 py-2 bg-transparent text-gray-900 hover:bg-gray-100 dark:text-gray-50 dark:hover:bg-gray-800 border border-gray-300 dark:border-gray-700'>
+								className={getButtonClasses(false)}>
 								Cancel
+							</button>
+							<button
+								onClick={handleSave}
+								disabled={isLoading || !isChanged}
+								className={getButtonClasses(true)}>
+								{isLoading ? <Loader2 className='mr-2 h-4 w-4 animate-spin' /> : 'Save Changes'}
 							</button>
 						</div>
 					</>

@@ -2,8 +2,6 @@ import { useEffect } from 'react';
 
 type Event = MouseEvent | TouchEvent;
 
-// A interface foi simplificada para corresponder diretamente à estrutura de uma 'ref' do React.
-// Em vez de usar o tipo genérico RefObject, especificamos a propriedade 'current'.
 type RefType = {
 	current: HTMLElement | null;
 };
