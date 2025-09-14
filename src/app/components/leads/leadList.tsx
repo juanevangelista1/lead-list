@@ -19,7 +19,7 @@ interface LeadListProps {
 }
 
 const ITEMS_PER_PAGE = 10;
-const LEAD_FILTER_STATUSES: (LeadStatus | 'All')[] = [
+const LEAD_FILTER_STATUS: (LeadStatus | 'All')[] = [
 	'All',
 	'New',
 	'Contacted',
@@ -134,17 +134,9 @@ export function LeadList({ leads, setLeads, opportunities, setOpportunities }: L
 		setLeads(newLeads);
 	};
 
-	const handleConvertLead = (convertedLead: Lead) => {
+	const handleConvertLead = (convertedLead: Lead, newOpportunity: Opportunity) => {
 		const newLeads = leads.map((l) => (l.id === convertedLead.id ? convertedLead : l));
 		setLeads(newLeads);
-
-		const newOpportunity: Opportunity = {
-			id: `opp-${convertedLead.id}`,
-			name: `Opportunity for ${convertedLead.name}`,
-			stage: 'Discovery',
-			amount: null,
-			accountName: convertedLead.company,
-		};
 		setOpportunities([...opportunities, newOpportunity]);
 	};
 
@@ -166,7 +158,7 @@ export function LeadList({ leads, setLeads, opportunities, setOpportunities }: L
 
 	return (
 		<div className='flex flex-col space-y-6'>
-			<div className='py-6 lg:px-0 sm:px-2 md:px-6'>
+			<div className='sm:px-2 sm:py-2 md:px-6 lg:py-6 lg:px-0'>
 				<div className='flex lg:justify-between items-center flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0'>
 					<div className='relative w-full sm:max-w-xs'>
 						<div className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none'>
@@ -188,7 +180,7 @@ export function LeadList({ leads, setLeads, opportunities, setOpportunities }: L
 						/>
 					</div>
 					<div
-						className='relative flex justify-between items-center'
+						className='relative flex items-center'
 						ref={filterRef}>
 						<button
 							onClick={() => setIsFilterOpen(!isFilterOpen)}
@@ -202,7 +194,7 @@ export function LeadList({ leads, setLeads, opportunities, setOpportunities }: L
 									className='py-1'
 									role='menu'
 									aria-orientation='vertical'>
-									{LEAD_FILTER_STATUSES.map((status) => (
+									{LEAD_FILTER_STATUS.map((status) => (
 										<button
 											key={status}
 											onClick={() => handleFilterChange(status)}

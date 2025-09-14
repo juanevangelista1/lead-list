@@ -10,7 +10,7 @@ export function OpportunityTable({ opportunities }: OpportunityTableProps) {
 	return (
 		<div className='bg-white dark:bg-gray-900 rounded-lg shadow-md'>
 			{opportunities.length > 0 ? (
-				<div className='overflow-x-auto shadow-md sm:rounded-lg'>
+				<div className='overflow-x-auto'>
 					<table className='min-w-full table-fixed divide-y divide-gray-200 dark:divide-gray-700'>
 						<thead className='bg-gray-50 dark:bg-gray-800'>
 							<tr>

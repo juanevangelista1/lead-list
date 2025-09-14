@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Lead, LeadStatus } from '@/lib/types';
+import { Lead, LeadStatus, Opportunity } from '@/lib/types';
 import { leadService } from '../../services/leadServiceAPI';
 import { opportunityService } from '../../services/opportunityService';
 import { validateEmail } from '@/lib/utils';
@@ -14,7 +14,7 @@ interface LeadDetailPanelProps {
 	lead: Lead | null;
 	onClose: () => void;
 	onSave: (updatedLead: Lead) => void;
-	onConvert: (lead: Lead) => void;
+	onConvert: (updatedLead: Lead, newOpportunity: Opportunity) => void;
 }
 
 const LEAD_STATUSES: LeadStatus[] = ['New', 'Contacted', 'Qualified', 'Archived'];
@@ -82,9 +82,9 @@ export function LeadDetailPanel({ lead, onClose, onSave, onConvert }: LeadDetail
 		setError('');
 
 		try {
-			await opportunityService.createOpportunityFromLead(lead);
+			const newOpportunity = await opportunityService.createOpportunityFromLead(lead);
 			const updatedLead = await leadService.updateLeadStatus(lead.id, 'Opportunity');
-			onConvert(updatedLead);
+			onConvert(updatedLead, newOpportunity);
 			toast.success('Lead converted to Opportunity!');
 			onClose();
 		} catch (e: unknown) {
@@ -145,7 +145,7 @@ export function LeadDetailPanel({ lead, onClose, onSave, onConvert }: LeadDetail
 											name='email'
 											value={editedEmail}
 											onChange={(e) => setEditedEmail(e.target.value)}
-											className='flex-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white'
+											className='inline-flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white transition-colors duration-200 w-full justify-between'
 										/>
 										<button
 											onClick={() => setIsEditingEmail(false)}
@@ -213,12 +213,12 @@ export function LeadDetailPanel({ lead, onClose, onSave, onConvert }: LeadDetail
 									onClick={handleConvert}
 									disabled={isLoading || lead.status === 'Opportunity'}
 									className='cursor-pointer flex-1 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none dark:focus-visible:ring-gray-300 h-10 px-4 py-2 bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600'>
-									{isLoading ? <Loader2 className='mr-2 h-4 w-4 animate-spin' /> : 'Convert to Opportunity'}
+									{isLoading ? <Loader2 className='mr-2 h-4 w-4 animate-spin' /> : 'Convert Lead'}
 								</button>
 							</div>
 							{error && <p className='text-red-500 text-sm mt-2'>{error}</p>}
 						</div>
-						<div className='flex flex-col-reverse sm:flex-row items-center justify-end sm:space-x-2 p-6 border-t border-gray-200 dark:border-gray-800'>
+						<div className='flex flex-col gap-2 items-stretch p-6 border-t border-gray-200 dark:border-gray-800 lg:flex-row lg:items-center lg:justify-between'>
 							<button
 								onClick={handleSave}
 								disabled={isLoading || !isChanged}

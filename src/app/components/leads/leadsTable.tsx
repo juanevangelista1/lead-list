@@ -1,13 +1,13 @@
 'use client';
 
-import { Lead } from '@/lib/types';
+import { Lead, Opportunity } from '@/lib/types';
 import { LeadDetailPanel } from './leadDetailPanel';
 import { useState } from 'react';
-import { ArrowDown, ArrowUp, ArrowUpDown } from 'lucide-react';
+import { ChevronDown, ChevronUp, ChevronsUpDown } from 'lucide-react';
 
 export interface LeadsTableProps {
 	leads: Lead[];
-	onConvert: (updatedLead: Lead) => void;
+	onConvert: (updatedLead: Lead, newOpportunity: Opportunity) => void;
 	onSave: (updatedLead: Lead) => void;
 	sortOption: 'name' | 'score' | 'status';
 	sortDirection: 'asc' | 'desc';
@@ -34,12 +34,12 @@ export function LeadsTable({
 
 	const SortIcon = ({ column }: { column: 'name' | 'score' | 'status' }) => {
 		if (sortOption !== column) {
-			return <ArrowUpDown className='w-3 h-3 ml-1 text-gray-400' />;
+			return <ChevronsUpDown className='w-4 h-4 ml-1 text-gray-400' />;
 		}
 		return sortDirection === 'asc' ? (
-			<ArrowUp className='w-3 h-3 ml-1' />
+			<ChevronUp className='w-4 h-4 ml-1' />
 		) : (
-			<ArrowDown className='w-3 h-3 ml-1' />
+			<ChevronDown className='w-4 h-4 ml-1' />
 		);
 	};
 
@@ -47,33 +47,39 @@ export function LeadsTable({
 		<>
 			{leads.length > 0 ? (
 				<div className='overflow-x-auto shadow-md sm:rounded-lg'>
-					<table className='min-w-full table-fixed divide-y divide-gray-200 dark:divide-gray-700'>
+					<table className='min-w-full table-auto divide-y divide-gray-200 dark:divide-gray-700'>
 						<thead className='bg-gray-50 dark:bg-gray-800 h-[50px]'>
 							<tr>
 								<th
 									onClick={() => onSort('name')}
-									className='cursor-pointer w-1/4 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider'>
+									className='cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider'>
 									<div className='flex items-center'>
-										<p>Name</p>
+										<span>Name</span>
 										<SortIcon column='name' />
 									</div>
 								</th>
-								<th className='w-1/4 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider'>
+								<th className='px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider'>
 									Company
+								</th>
+								<th className='px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider'>
+									Email
+								</th>
+								<th className='px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider'>
+									Source
 								</th>
 								<th
 									onClick={() => onSort('status')}
-									className='cursor-pointer w-1/4 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider'>
+									className='cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider'>
 									<div className='flex items-center'>
-										<p>Status</p>
+										<span>Status</span>
 										<SortIcon column='status' />
 									</div>
 								</th>
 								<th
 									onClick={() => onSort('score')}
-									className='cursor-pointer w-1/4 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider'>
+									className='cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider'>
 									<div className='flex items-center'>
-										<p>Score</p>
+										<span>Score</span>
 										<SortIcon column='score' />
 									</div>
 								</th>
@@ -90,6 +96,12 @@ export function LeadsTable({
 									</td>
 									<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400'>
 										{lead.company}
+									</td>
+									<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400'>
+										{lead.email}
+									</td>
+									<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400'>
+										{lead.source}
 									</td>
 									<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400'>
 										{lead.status}
