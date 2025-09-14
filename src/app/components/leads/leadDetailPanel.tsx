@@ -7,6 +7,7 @@ import { validateEmail } from '@/lib/utils';
 import { Loader2, X, Pencil, XCircle, SlidersHorizontal } from 'lucide-react';
 import { opportunityService } from '../../services/opportunityService';
 import { Label } from '@/app/components/ui/label';
+import { toast } from 'react-toastify';
 
 interface LeadDetailPanelProps {
 	lead: Lead | null;
@@ -78,8 +79,10 @@ export function LeadDetailPanel({ lead, onClose, onSave, onConvert }: LeadDetail
 			});
 			onSave(updatedLead);
 			onClose();
+			toast.success('Lead updated successfully!');
 		} catch (e: unknown) {
 			setError(e instanceof Error ? e.message : 'Failed to save changes.');
+			toast.error('Failed to save changes.');
 		} finally {
 			setIsLoading(false);
 		}
@@ -101,8 +104,10 @@ export function LeadDetailPanel({ lead, onClose, onSave, onConvert }: LeadDetail
 			const updatedLead = await leadService.updateLeadStatus(lead.id, 'Opportunity');
 			onConvert(updatedLead);
 			onClose();
+			toast.success('Lead converted to Opportunity!');
 		} catch (e: unknown) {
 			setError(e instanceof Error ? e.message : 'Failed to convert lead to opportunity.');
+			toast.error('Failed to convert lead to opportunity.');
 		} finally {
 			setIsLoading(false);
 		}
@@ -121,7 +126,7 @@ export function LeadDetailPanel({ lead, onClose, onSave, onConvert }: LeadDetail
 		<>
 			<div
 				onClick={onClose}
-				className={`fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-40 transition-opacity duration-300 ease-in-out ${
+				className={`fixed h-full inset-0 bg-gray-900/50 backdrop-blur-sm z-40 transition-opacity duration-300 ease-in-out ${
 					isPanelOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
 				}`}></div>
 
@@ -130,7 +135,6 @@ export function LeadDetailPanel({ lead, onClose, onSave, onConvert }: LeadDetail
 				className={`fixed top-0 right-0 h-full w-full max-w-md bg-white dark:bg-gray-900 shadow-xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col ${
 					isPanelOpen ? 'translate-x-0' : 'translate-x-full'
 				}`}>
-				{/* Header do Painel */}
 				<div className='flex items-start justify-between p-6 border-b border-gray-200 dark:border-gray-700'>
 					<div className='flex flex-col'>
 						<h2 className='text-2xl font-semibold text-gray-900 dark:text-white'>
@@ -144,8 +148,6 @@ export function LeadDetailPanel({ lead, onClose, onSave, onConvert }: LeadDetail
 						<X className='h-5 w-5' />
 					</button>
 				</div>
-
-				{/* Conteúdo do Painel */}
 				<div className='p-6 overflow-y-auto flex-1 space-y-6'>
 					<div className='flex flex-col space-y-2'>
 						<Label
@@ -161,8 +163,6 @@ export function LeadDetailPanel({ lead, onClose, onSave, onConvert }: LeadDetail
 									name='email'
 									value={editedEmail}
 									onChange={(e) => setEditedEmail(e.target.value)}
-									ref={emailInputRef}
-									disabled={isLoading}
 									className='flex-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white'
 								/>
 								<button
@@ -187,7 +187,6 @@ export function LeadDetailPanel({ lead, onClose, onSave, onConvert }: LeadDetail
 						)}
 						{error && <p className='text-red-500 text-sm mt-2'>{error}</p>}
 					</div>
-
 					<div className='flex flex-col space-y-2'>
 						<Label
 							htmlFor='status'
@@ -224,17 +223,15 @@ export function LeadDetailPanel({ lead, onClose, onSave, onConvert }: LeadDetail
 							)}
 						</div>
 					</div>
-
 					<div className='flex flex-col space-y-2'>
 						<Label className='text-gray-500 dark:text-gray-400'>Score</Label>
 						<p className='text-base font-medium'>{lead?.score}</p>
 					</div>
-
 					<div className='flex flex-col sm:flex-row justify-start space-y-2 sm:space-y-0 sm:space-x-2 mt-6'>
 						<button
 							onClick={handleConvert}
 							disabled={isLoading || lead?.status === 'Opportunity'}
-							className='flex-1 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none dark:focus-visible:ring-gray-300 h-10 px-4 py-2 bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 cursor-pointer'>
+							className='cursor-pointer flex-1 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none dark:focus-visible:ring-gray-300 h-10 px-4 py-2 bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600'>
 							{isLoading ? <Loader2 className='mr-2 h-4 w-4 animate-spin' /> : 'Convert to Opportunity'}
 						</button>
 					</div>
@@ -242,7 +239,6 @@ export function LeadDetailPanel({ lead, onClose, onSave, onConvert }: LeadDetail
 						<p className='text-red-500 text-sm mt-2'>{error}</p>
 					)}
 				</div>
-
 				<div className='flex flex-col-reverse sm:flex-row items-center justify-start sm:space-x-2 p-6 border-t border-gray-200 dark:border-gray-800'>
 					<button
 						onClick={handleSave}
