@@ -64,7 +64,7 @@ export function LeadListControls({
 				ref={filterRef}>
 				<button
 					onClick={() => setIsFilterOpen(!isFilterOpen)}
-					className='flex-1 inline-flex items-center space-x-2 px-9 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white transition-colors duration-200 min-w-[150px]'>
+					className='flex-1 inline-flex items-center space-x-2 px-9 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white transition-colors duration-200 max-w-[170px]'>
 					<SlidersHorizontal className='h-4 w-4 text-gray-500' />
 					<span>{filterStatus}</span>
 				</button>
