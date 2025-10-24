@@ -1,10 +1,18 @@
-export type LeadStatus = 'New' | 'Contacted' | 'Qualified' | 'Opportunity' | 'Archived';
-export type OpportunityStage =
-	| 'Discovery'
-	| 'Proposal'
-	| 'Negotiation'
-	| 'Closed Won'
-	| 'Closed Lost';
+export enum LeadStatus {
+	New = 'New',
+	Contacted = 'Contacted',
+	Qualified = 'Qualified',
+	Opportunity = 'Opportunity',
+	Archived = 'Archived',
+}
+
+export enum OpportunityStage {
+	Discovery = 'Discovery',
+	Proposal = 'Proposal',
+	Negotiation = 'Negotiation',
+	ClosedWon = 'Closed Won',
+	ClosedLost = 'Closed Lost',
+}
 
 export interface Lead {
 	id: string;

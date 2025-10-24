@@ -46,6 +46,7 @@ export function useLeads(
 				setLeads(fetchedLeads);
 			} catch (err: unknown) {
 				const message = err instanceof Error ? err.message : 'Failed to fetch leads.';
+				console.error('[useLeads] Error fetching leads:', message, err);
 				setError(message);
 			} finally {
 				setIsLoading(false);

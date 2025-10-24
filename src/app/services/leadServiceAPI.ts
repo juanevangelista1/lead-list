@@ -13,12 +13,12 @@ class LeadServiceAPI extends ApiService {
 	}
 
 	async fetchLeads(): Promise<Lead[]> {
-		console.log('Fetching leads...');
+		console.info('[LeadService] Fetching leads...');
 		return this.simulateApiCall([...this.leads]);
 	}
 
 	async updateLead(id: string, updates: Partial<Lead>): Promise<Lead> {
-		console.log(`Updating lead ${id} with data: `, updates);
+		console.info(`[LeadService] Updating lead ${id} with data: `, updates);
 		const leadToUpdate = this.findItemById(this.leads, id, 'Lead');
 		const updatedLead = { ...leadToUpdate, ...updates };
 		this.leads = this.leads.map((lead) => (lead.id === id ? updatedLead : lead));

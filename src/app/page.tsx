@@ -34,7 +34,7 @@ export default function Home() {
 					/>
 					<main className='container mx-auto flex-1 p-4 sm:p-6 lg:p-8'>
 						<div className='flex flex-col space-y-6'>
-							<div className='bg-white dark:bg-gray-900 rounded-lg shadow-md p-6'>
+							<div className='bg-white dark:bg-gray-900 rounded-lg p-6'>
 								{activeTab === 'Leads' && (
 									<LeadList
 										leads={leads}

@@ -12,6 +12,7 @@ export abstract class ApiService {
 	protected findItemById<T extends { id: string }>(items: T[], id: string, entityName: string): T {
 		const item = items.find((i) => i.id === id);
 		if (!item) {
+			console.warn(`[ApiService] Item not found. Entity: ${entityName}, ID: ${id}`);
 			throw new NotFoundError(entityName);
 		}
 		return item;
