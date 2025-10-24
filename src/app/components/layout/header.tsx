@@ -42,7 +42,6 @@ export function Header({ activeTab, setActiveTab }: HeaderProps) {
 						activeTab={activeTab}
 						setActiveTab={handleTabClick}
 					/>
-					<ThemeToggle />
 				</div>
 
 				<div className='md:hidden flex items-center space-x-2'>
